@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, send_file
 from urllib.parse import quote
 import os
 from werkzeug.utils import secure_filename
+import psycopg2
+from datetime import datetime
 from azure.storage.blob import BlobServiceClient
 
 app = Flask(__name__)
@@ -15,6 +17,17 @@ container_name = 'files'
 connection_string = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///metadata.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+conn = psycopg2.connect(
+    dbname="your_database",
+    user="mydb",
+    password="aniket@123",
+    host="localhost",
+    port="9000"
+)
+cur = conn.cursor()
 
 @app.route('/')
 def index():
@@ -144,4 +157,4 @@ def delete_blob_from_azure(container_name, blob_name, connection_string):
 
 
 if __name__ == '__main__':
-    app.run(host= '0.0.0.0',port=8080)
+    app.run(host='0.0.0.0', port=8080)

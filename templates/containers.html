@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Blob Storage Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .scrollable-container {
+            max-height: 300px; /* Adjust the max height as needed */
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Azure Blob Storage Management</h1>
+
+    <!-- Create Container Form -->
+    <div class="card mt-4">
+        <div class="card-header">Create Container</div>
+        <div class="card-body">
+            <form id="createContainerForm">
+                <div class="form-group">
+                    <label for="containerName">Container Name:</label>
+                    <input type="text" class="form-control" id="containerName" name="containerName" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Container</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- List Containers Table -->
+    <div class="card mt-4">
+        <div class="card-header">List Containers</div>
+        <div class="card-body scrollable-container">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Container Name</th>
+                </tr>
+                </thead>
+                <tbody id="containerList">
+
+                {% for container in containers %}
+                <tr>
+                    <td> <a href="/{{ container }}">{{ container }}</a></td>
+                    <td>
+                            <a href="/delete/{{ container }}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

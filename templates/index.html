@@ -6,7 +6,7 @@
     <title>Cloud File Storage</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         /* Custom CSS for scrollable table */
         .table-container {
@@ -19,99 +19,101 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-5 mb-4">Cloud File Storage</h1>
+<div class="container">
+    <h1 class="mt-5 mb-4">{{container_name}}</h1>
 
-        <!-- File Upload Form -->
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Upload File</h5>
-                <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="post">
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="fileInput" name="file">
-                            <label class="custom-file-label" for="fileInput">Choose file</label>
-                        </div>
-                        <div class="input-group-append ml-2">
-                            <button  class="btn btn-primary upload-btn"  id="uploadBtn">Upload</button>
-                        </div>
+    <!-- File Upload Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Upload File</h5>
+            <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="post">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="fileInput" name="file">
+                        <label class="custom-file-label" for="fileInput">Choose file</label>
                     </div>
-                    <small id="fileError" class="text-danger" style="display: none;">Please select a file to upload.</small>
-                </form>
-                <div class="spinner-container mt-2">
-                    <div class="spinner-border text-primary upload-spinner" role="status" style="display: none;">
-                        <span class="sr-only">Uploading...</span>
+                    <div class="input-group-append ml-2">
+                        <button class="btn btn-primary upload-btn" id="uploadBtn">Upload</button>
                     </div>
+                </div>
+                <small id="fileError" class="text-danger" style="display: none;">Please select a file to upload.</small>
+            </form>
+            <div class="spinner-container mt-2">
+                <div class="spinner-border text-primary upload-spinner" role="status" style="display: none;">
+                    <span class="sr-only">Uploading...</span>
                 </div>
             </div>
         </div>
-
-        <!-- File List Table -->
-        <div class="table-container">
-            <h2 class="mb-4">File List</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>File Name</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for file in files %}
-                    <tr>
-                        <td>{{ file }}</td>
-                        <td>
-                            <a href="/download/{{ file }}" class="btn btn-sm btn-success download-link mr-3"><i class="fas fa-download"></i></a>
-                            <a href="/delete/{{ file }}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
-                             <div class="spinner-container">
-                                <div class="spinner-border text-primary download-spinner" role="status" style="display: none;">
-                                    <span class="sr-only">Downloading...</span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
 
-    <!-- Bootstrap JS (optional, for some features like dropdowns) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        // Update the label of the file input field with the selected file name
-        document.getElementById('fileInput').addEventListener('change', function(event) {
-            var fileName = event.target.files[0].name;
-            var label = document.querySelector('.custom-file-label');
-            label.textContent = fileName;
-        });
+    <!-- File List Table -->
+    <div class="table-container">
+        <h2 class="mb-4">File List</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for file in files %}
+            <tr>
+                <td>{{ file }}</td>
+                <td>
+                    <a href="/<path:container_name>/download/{{ file }}"
+                       class="btn btn-sm btn-success download-link mr-3"><i class="fas fa-download"></i></a>
+                    <a href="/<path:container_name>/delete/{{ file }}" class="btn btn-sm btn-danger"><i
+                            class="fas fa-trash-alt"></i></a>
+                    <div class="spinner-container">
+                        <div class="spinner-border text-primary download-spinner" role="status" style="display: none;">
+                            <span class="sr-only">Downloading...</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
-        // Upload button click event handler
-        document.getElementById('uploadBtn').addEventListener('click', function(event) {
-            var fileInput = document.getElementById('fileInput');
-            var fileError = document.getElementById('fileError');
-            var spinner = document.querySelector('.upload-spinner');
+<!-- Bootstrap JS (optional, for some features like dropdowns) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Update the label of the file input field with the selected file name
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        var fileName = event.target.files[0].name;
+        var label = document.querySelector('.custom-file-label');
+        label.textContent = fileName;
+    });
 
-            // If no file is selected, display error message
-            if (!fileInput.files || !fileInput.files[0]) {
-                fileError.style.display = 'block';
-                return;
-            }
+    // Upload button click event handler
+    document.getElementById('uploadBtn').addEventListener('click', function(event) {
+        var fileInput = document.getElementById('fileInput');
+        var fileError = document.getElementById('fileError');
+        var spinner = document.querySelector('.upload-spinner');
 
-            // Hide error message
-            fileError.style.display = 'none';
+        // If no file is selected, display error message
+        if (!fileInput.files || !fileInput.files[0]) {
+            fileError.style.display = 'block';
+            return;
+        }
 
-            // Show spinner
-            spinner.style.display = 'inline-block';
+        // Hide error message
+        fileError.style.display = 'none';
 
-            // Simulate upload process (hide spinner after 3 seconds)
-            setTimeout(function() {
-                spinner.style.display = 'none'; // Hide spinner
-                // Perform actual upload process here...
-            }, 3000);
-        });
-    </script>
+        // Show spinner
+        spinner.style.display = 'inline-block';
+
+        // Simulate upload process (hide spinner after 3 seconds)
+        setTimeout(function() {
+            spinner.style.display = 'none'; // Hide spinner
+            // Perform actual upload process here...
+        }, 3000);
+    });
+</script>
 </body>
 </html>

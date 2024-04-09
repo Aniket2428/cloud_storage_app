@@ -20,16 +20,16 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="mt-5 mb-4">{{container_name}}</h1>
+    <h1 class="mt-5 mb-4">/{{container_name}}</h1>
 
     <!-- File Upload Form -->
     <div class="card mb-4">
         <div class="card-body">
             <h5 class="card-title">Upload File</h5>
-            <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="post">
+            <form id="uploadForm" enctype="multipart/form-data" action="/{{container_name}}/upload" method="post">
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="fileInput" name="file">
+                        <input type="file" class="custom-file-input" id="fileInput" name="file" required>
                         <label class="custom-file-label" for="fileInput">Choose file</label>
                     </div>
                     <div class="input-group-append ml-2">
@@ -61,9 +61,9 @@
             <tr>
                 <td>{{ file }}</td>
                 <td>
-                    <a href="/<path:container_name>/download/{{ file }}"
+                    <a href="/{{ container_name }}/download/{{ file }}"
                        class="btn btn-sm btn-success download-link mr-3"><i class="fas fa-download"></i></a>
-                    <a href="/<path:container_name>/delete/{{ file }}" class="btn btn-sm btn-danger"><i
+                    <a href="/{{ container_name }}/delete/{{ file }}" class="btn btn-sm btn-danger"><i
                             class="fas fa-trash-alt"></i></a>
                     <div class="spinner-container">
                         <div class="spinner-border text-primary download-spinner" role="status" style="display: none;">

@@ -23,10 +23,11 @@
     <div class="card mt-4">
         <div class="card-header">Create Container</div>
         <div class="card-body">
-            <form id="createContainerForm">
+            <form id="createContainerForm" method="post" action="/create_container">
                 <div class="form-group">
                     <label for="containerName">Container Name:</label>
-                    <input type="text" class="form-control" id="containerName" name="containerName" required>
+                    <input type="text" formnovalidate class="form-control" id="containerName" name="containerName" pattern="[a-z0-9]+" title="Container name must be all lowercase and contain only alphanumeric characters." required>
+                 <div class="invalid-feedback">Container name is required and must be all lowercase and contain only alphanumeric characters.</div>
                 </div>
                 <button type="submit" class="btn btn-primary">Create Container</button>
             </form>

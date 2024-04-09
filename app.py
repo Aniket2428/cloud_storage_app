@@ -2,8 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, send_file,
 from urllib.parse import quote
 import os
 from werkzeug.utils import secure_filename
-import psycopg2
-from datetime import datetime
 from azure.storage.blob import BlobServiceClient
 
 app = Flask(__name__)
@@ -16,9 +14,6 @@ account_key = 'HNTkshHozHqfSYh7nqoK9M+vH+q3lvg5SySlQz2SkDCnwSVXghKWpHs6GSfHbJEAq
 connection_string = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///metadata.db'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 @app.route('/')
 def index():
@@ -35,7 +30,7 @@ def list_container_files(container_name):
 
 
 @app.route('/<path:container_name>/upload', methods=['POST'])
-def upload_file():
+def upload_file(container_name):
     if 'file' not in request.files:
         return redirect(request.url)
 
@@ -44,39 +39,41 @@ def upload_file():
     if file.filename == '':
         return redirect(request.url)
 
-    container_name = request.form['containerName']
     azure_blob_name = secure_filename(file.filename)
     upload_file_to_azure(file, container_name, azure_blob_name)
 
-    return redirect(url_for('index'))
+    return redirect(request.referrer)
 
 
-@app.route('/download/<file_name>')
-def download_file(file_name):
-    container_name = request.form['containerName']
+@app.route('/<path:container_name>/download/<file_name>')
+def download_file(container_name, file_name):
     local_file_path = os.path.join('temp', quote(file_name))
     download_file_from_azure(file_name, container_name, local_file_path)
     # download_file_from_azure(file_name, container_name, local_file_path)
     return send_file(local_file_path, as_attachment=True)
 
 
-@app.route('/delete/<file_name>')
-def delete_file(file_name):
-    container_name = request.form['containerName']
+@app.route('/<path:container_name>/delete/<file_name>')
+def delete_file(container_name, file_name):
     # local_file_path = os.path.join('temp', quote(file_name))
     delete_blob_from_azure(container_name, file_name, connection_string)
-    return refreshScreen()
+    return redirect(request.referrer)
 
 
 @app.route('/create_container', methods=['POST'])
 def create_blob_container():
-    container_name = request.form.get('container_name')
+    container_name = request.form['containerName']
+    print(container_name)
     if not container_name:
-        return 'Container name is required', 400
+        return 'Container name cannot be empty'
+    if not container_name.islower():
+        return 'Container name must be all lowercase'
+    if not container_name.isalnum():
+        return 'Container name must contain only alphanumeric characters'
 
     try:
         container_client = create_container(container_name)
-        return f'Container "{container_name}" created successfully', 200
+        return redirect(request.referrer)
     except Exception as e:
         return f'Error creating container: {str(e)}', 500
 
@@ -91,10 +88,10 @@ def list_blob_containers():
         return f'Error listing containers: {str(e)}', 500
 
 
-def refreshScreen():
-    files = list_files()
-    print(files)
-    return render_template('index.html', files=files)
+# def refreshScreen(container_name):
+#     files = list_files(container_name)
+#     print(files)
+#     return render_template('index.html', files=files,container_name=container_name)
 
 
 def list_files(container_name):
@@ -107,7 +104,7 @@ def list_files(container_name):
 def create_container(container_name):
     blob_service_client = BlobServiceClient.from_connection_string(connection_string)
     container_client = blob_service_client.create_container(container_name)
-    return container_client
+    return redirect(request.referrer)
 
 
 # Function to list all containers in Azure Blob Storage

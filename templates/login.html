@@ -10,7 +10,8 @@
 </head>
 <body>
 <div class="container">
-    <h1>Login</h1>
+    <h1 class="mb-2">Cloud Based Storage</h1>
+    <h3 class="element">Login</h3>
     <!-- Display flash messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -27,7 +28,7 @@
         <input type="password" id="password" name="password" required>
         <button type="submit">Login</button>
     </form>
-     <div class="element">
+    <div class="element">
         <a href="{{ url_for('signup') }}">Not registered? Sign up</a>
     </div>
 </div>

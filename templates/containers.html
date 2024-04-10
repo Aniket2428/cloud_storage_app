@@ -6,7 +6,7 @@
     <title>Azure Blob Storage Management</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         .scrollable-container {
@@ -17,16 +17,40 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="mt-5">Azure Blob Storage Management</h1>
-
+    <div class="alert text-start mt-4" style="background-color: #aaaaaa; color: black; border-color: #aaaaaa;"
+         role="alert">
+        <div class="row text-start">
+            <div class="col-9 mt-1">
+                <h4>Azure Blob Storage Management</h4>
+            </div>
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-7 mt-1">
+                        <h4 style="color: #3a4664">user: {{ username }}</h4>
+                    </div>
+                    <div class="col-5">
+                        <form action="{{ url_for('logout') }}" method="post">
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Create Container Form -->
     <div class="card mt-4">
         <div class="card-header">Create Container</div>
         <div class="card-body">
-            <form id="createContainerForm">
+            <form id="createContainerForm" method="post" action="/create_container">
                 <div class="form-group">
                     <label for="containerName">Container Name:</label>
-                    <input type="text" class="form-control" id="containerName" name="containerName" required>
+                    <input type="text" formnovalidate class="form-control" id="containerName" name="containerName"
+                           pattern="[a-z0-9]+"
+                           title="Container name must be all lowercase and contain only alphanumeric characters."
+                           required>
+                    <div class="invalid-feedback">Container name is required and must be all lowercase and contain only
+                        alphanumeric characters.
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Create Container</button>
             </form>
@@ -35,21 +59,17 @@
 
     <!-- List Containers Table -->
     <div class="card mt-4">
-        <div class="card-header">List Containers</div>
+        <div class="card-header">Containers</div>
         <div class="card-body scrollable-container">
             <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Container Name</th>
-                </tr>
-                </thead>
                 <tbody id="containerList">
 
                 {% for container in containers %}
                 <tr>
-                    <td> <a href="/{{ container }}">{{ container }}</a></td>
+                    <td><a href="/{{ container }}">{{ container }}</a></td>
                     <td>
-                            <a href="/delete/{{ container }}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                        <a href="/delete_container/{{ container }}" class="btn btn-sm btn-danger"><i
+                                class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
                 {% endfor %}

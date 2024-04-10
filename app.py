@@ -85,6 +85,7 @@ def download_file(container_name, file_name):
     local_file_path = os.path.join('temp', quote(file_name))
     download_file_from_azure(file_name, container_name, local_file_path)
     # download_file_from_azure(file_name, container_name, local_file_path)
+    upload_message = "Downloaded Successfully."
     return send_file(local_file_path, as_attachment=True)
 
 

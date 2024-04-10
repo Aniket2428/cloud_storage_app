@@ -23,12 +23,17 @@
 <div class="container">
     {% if message != ''%}
     {% if message == 'Uploaded Successfully.'%}
-    <div class="alert alert-success mt-2" id="dismissDiv1" style="display: block;">
+    <div class="alert alert-success mt-2" id="dismissDiv1">
         {{ message }}
     </div>
     {%endif%}
     {% if message == 'Deleted Successfully.' %}
-    <div class="alert alert-danger mt-2" id="dismissDiv" style="display: block;">
+    <div class="alert alert-danger mt-2" id="dismissDiv2">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% if message == 'Downloaded Successfully.' %}
+    <div class="alert alert-danger mt-2" id="dismissDiv3">
         {{ message }}
     </div>
     {%endif%}
@@ -129,7 +134,7 @@
 </script>
 <script>
     // Get the reference to the div
-    var dismissDiv = document.getElementById('dismissDiv1');
+    var dismissDiv = document.getElementById('dismissDiv3');
 
     // Set a timer to dismiss the div after 5 seconds (5000 milliseconds)
     setTimeout(function() {
@@ -139,7 +144,17 @@
 
 <script>
     // Get the reference to the div
-    var dismissDiv = document.getElementById('dismissDiv');
+    var dismissDiv = document.getElementById('dismissDiv2');
+
+    // Set a timer to dismiss the div after 5 seconds (5000 milliseconds)
+    setTimeout(function() {
+      dismissDiv.style.display = 'none'; // Hide the div after 5 seconds
+    }, 5000); // 5000 milliseconds = 5 seconds
+</script>
+
+<script>
+    // Get the reference to the div
+    var dismissDiv = document.getElementById('dismissDiv1');
 
     // Set a timer to dismiss the div after 5 seconds (5000 milliseconds)
     setTimeout(function() {

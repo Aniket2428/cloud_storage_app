@@ -19,9 +19,21 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="mt-5 mb-4">/{{container_name}}</h1>
 
+<div class="container">
+    {% if message != ''%}
+    {% if message == 'Uploaded Successfully.'%}
+    <div class="alert alert-success mt-2" id="dismissDiv1" style="display: block;">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% if message == 'Deleted Successfully.' %}
+    <div class="alert alert-danger mt-2" id="dismissDiv" style="display: block;">
+        {{ message }}
+    </div>
+    {%endif%}
+    {% endif %}
+    <h1 class="mt-4 mb-4">/{{container_name}}</h1>
     <!-- File Upload Form -->
     <div class="card mb-4">
         <div class="card-body">
@@ -115,5 +127,25 @@
         }, 3000);
     });
 </script>
+<script>
+    // Get the reference to the div
+    var dismissDiv = document.getElementById('dismissDiv1');
+
+    // Set a timer to dismiss the div after 5 seconds (5000 milliseconds)
+    setTimeout(function() {
+      dismissDiv.style.display = 'none'; // Hide the div after 5 seconds
+    }, 5000); // 5000 milliseconds = 5 seconds
+</script>
+
+<script>
+    // Get the reference to the div
+    var dismissDiv = document.getElementById('dismissDiv');
+
+    // Set a timer to dismiss the div after 5 seconds (5000 milliseconds)
+    setTimeout(function() {
+      dismissDiv.style.display = 'none'; // Hide the div after 5 seconds
+    }, 5000); // 5000 milliseconds = 5 seconds
+</script>
+
 </body>
 </html>

@@ -2,13 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Signin Template · Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/5.3/examples/sign-in/signin.css" rel="stylesheet">
 </head>
-<body>
-<p>
-    <% for file in files %>
-    <a>{{file}}</a>
-        <%endfor%>
-</p>
+<body class="text-center">
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <main class="form-signin">
+        <h1 class="h3 mb-4 fw-normal">Cloud Storage App</h1>
+        <form action="/login" method="post">
+            <h2 class="h4 mt-4 mb-4 fw-normal">Sign in</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="form-floating mb-4">
+                <input type="text" id="username" class="form-control" name="username" placeholder="username">
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+                <label for="password">Password</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p><a href="{{ url_for('signup') }}">Not registered? Sign up</a></p>
+            <p class="mt-5 mb-3 text-muted">© 2024–2025</p>
+        </form>
+    </main>
+</div>
+
 </body>
 </html>

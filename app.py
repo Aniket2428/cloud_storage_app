@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from azure.storage.blob import BlobServiceClient
 
-from mongo import mongo, init_mongo
+from mongodb.mongo import mongo, init_mongo
 
 app = Flask(__name__)
 

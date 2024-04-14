@@ -5,7 +5,6 @@ mongo_uri = "mongodb+srv://storage:Abhey123@cluster0.i4dedvi.mongodb.net/databas
 
 mongo = PyMongo()
 
-
 def init_mongo(app):
     mongo.init_app(app)
 

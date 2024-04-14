@@ -69,10 +69,6 @@ def upload_file(container_name):
     if file.filename == '':
         return redirect(request.url)
 
-    if scan_file(file) != "OK":
-        upload_message = "File contain virus"
-        return "Invalid file"
-
     azure_blob_name = secure_filename(file.filename)
     upload_file_to_azure(file, container_name, azure_blob_name)
     files = list_files(container_name)
@@ -308,6 +304,7 @@ def delete_blob_from_azure(container_name, blob_name, connection_string):
     except Exception as e:
         print(f"Error deleting blob '{blob_name}' from container '{container_name}': {e}")
 
+
 def scan_file(file):
     try:
         clamav = pyclamd.ClamdUnixSocket()
@@ -320,6 +317,7 @@ def scan_file(file):
         return "ClamAV daemon is not running or cannot be reached."
     except Exception as e:
         return str(e)
+
 
 # Route to create a container
 

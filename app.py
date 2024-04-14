@@ -1,4 +1,3 @@
-import pyclamd
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify, flash, session
 from urllib.parse import quote
 import os
@@ -303,20 +302,6 @@ def delete_blob_from_azure(container_name, blob_name, connection_string):
         print(f"Blob '{blob_name}' deleted successfully from container '{container_name}'.")
     except Exception as e:
         print(f"Error deleting blob '{blob_name}' from container '{container_name}': {e}")
-
-
-def scan_file(file):
-    try:
-        clamav = pyclamd.ClamdUnixSocket()
-        scan_result = clamav.scan_file(file)
-        if scan_result[file] == 'OK':
-            return "OK"
-        else:
-            return scan_result[file]
-    except pyclamd.ConnectionError:
-        return "ClamAV daemon is not running or cannot be reached."
-    except Exception as e:
-        return str(e)
 
 
 # Route to create a container

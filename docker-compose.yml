@@ -1,10 +1,24 @@
+version: '3.8'
+
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: cloud-storage-app:latest
+    image: flask-mongo-app:latest
     ports:
-      - 8080:8080
-    restart: always
+      - "8080:8080"
+    environment:
+      - MONGO_URI=mongodb+srv://storage:Abhey123@cluster0.i4dedvi.mongodb.net/database
+    networks:
+      - app_net
 
+  mongo:
+    image: mongo:latest
+    volumes:
+      - data:/data/db
+    networks:
+      - app_net
+
+networks:
+  app_net:
+
+volumes:
+  data:

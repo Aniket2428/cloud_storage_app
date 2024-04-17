@@ -62,27 +62,27 @@
         </div>
     </div>
 
-    <!-- List Containers Table -->
-    <div class="card mt-4">
-        <div class="card-header">Containers</div>
-        <div class="card-body scrollable-container">
-            <table class="table table-striped">
-                <tbody id="containerList">
+<!--    &lt;!&ndash; List Containers Table &ndash;&gt;-->
+<!--    <div class="card mt-4">-->
+<!--        <div class="card-header">Containers</div>-->
+<!--        <div class="card-body scrollable-container">-->
+<!--            <table class="table table-striped">-->
+<!--                <tbody id="containerList">-->
 
-                {% for container in containers %}
-                <tr>
-                    <td><a href="/{{ container }}">{{ container }}</a></td>
-                    <td>
-                        <a href="/delete_container/{{ container }}" class="btn btn-sm btn-danger"><i
-                                class="fas fa-trash-alt"></i></a>
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
+<!--                {% for container in containers %}-->
+<!--                <tr>-->
+<!--                    <td><a href="/{{ container }}">{{ container }}</a></td>-->
+<!--                    <td>-->
+<!--                        <a href="/delete_container/{{ container }}" class="btn btn-sm btn-danger"><i-->
+<!--                                class="fas fa-trash-alt"></i></a>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                {% endfor %}-->
+<!--                </tbody>-->
 
-            </table>
-        </div>
-    </div>
+<!--            </table>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 
 <!-- Bootstrap JS -->

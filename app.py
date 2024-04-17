@@ -1,22 +1,27 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify, flash, session
 from urllib.parse import quote
 import os
+
+from flask.cli import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from azure.storage.blob import BlobServiceClient
 
 from mongodb.mongo import mongo, init_mongo
 
+load_dotenv()
 app = Flask(__name__)
 
 # Replace with your Azure Storage account details
-account_name = 'cloudstorageapp'
-account_key = 'HNTkshHozHqfSYh7nqoK9M+vH+q3lvg5SySlQz2SkDCnwSVXghKWpHs6GSfHbJEAqGpIdc6dWC9W+AStRAlGLA=='
+account_name = os.getenv('ACCOUNT_NAME')
+account_key = os.getenv('ACCOUNT_KEY')
+mongo_uri = os.getenv('MONGO_URI')
+print(mongo_uri)
 
 # Initialize the Azure Blob Storage client
 connection_string = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-mongo_uri = "mongodb+srv://storage:Abhey123@cluster0.i4dedvi.mongodb.net/database"
+
 
 upload_message = ""
 
@@ -38,9 +43,9 @@ def homepage():
         flash('Please log in to access this page.', 'error')
         return redirect(url_for('login'))
 
-    containers = list_containers()
-    print(containers)
-    return render_template('containers.html', containers=containers, username=session.get('username'))
+    # containers = list_containers()
+    # print(containers)
+    return render_template('containers.html', username=session.get('username'))
 
 
 @app.route('/<path:container_name>')

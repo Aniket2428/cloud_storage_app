@@ -1,13 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify, flash, session
 from urllib.parse import quote
 import os
-
-from flask.cli import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from azure.storage.blob import BlobServiceClient
 
-from mongodb.mongo import init_mongo, mongo
+from database.mongo import init_mongo, mongo
 
 
 app = Flask(__name__)

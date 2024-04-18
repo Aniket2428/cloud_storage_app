@@ -1,18 +1,16 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
+from flask import Flask, render_template, request, redirect, send_file, jsonify
 from urllib.parse import quote
 import os
-from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from azure.storage.blob import BlobServiceClient
 
-from database.mongo import init_mongo, mongo
 
 app = Flask(__name__)
 
 # Replace with your Azure Storage account details
 account_name = os.getenv('ACCOUNT_NAME')
 account_key = os.getenv('ACCOUNT_KEY')
-mongo_uri = os.getenv('MONGO_URI')
+# mongo_uri = os.getenv('MONGO_URI')
 
 # Initialize the Azure Blob Storage client
 connection_string = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
@@ -20,11 +18,11 @@ blob_service_client = BlobServiceClient.from_connection_string(connection_string
 
 upload_message = ""
 
-app.config["MONGO_URI"] = mongo_uri
-app.config['SECRET_KEY'] = os.urandom(24)
-
-init_mongo(app)
-
+# app.config["MONGO_URI"] = mongo_uri
+# app.config['SECRET_KEY'] = os.urandom(24)
+#
+# init_mongo(app)
+#
 
 # Define a route for the root URL
 @app.route('/')

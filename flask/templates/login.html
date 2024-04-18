@@ -1,36 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>User Login</title>-->
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">-->
 
-</head>
-<body>
-<div class="container">
-    <h1 class="mb-2">Cloud Based Storage</h1>
-    <h3 class="element">Login</h3>
-    <!-- Display flash messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert alert-{{ category }} element danger">{{ message }}</div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1 class="mb-2">Cloud Based Storage</h1>-->
+<!--    <h3 class="element">Login</h3>-->
+<!--    &lt;!&ndash; Display flash messages &ndash;&gt;-->
+<!--    {% with messages = get_flashed_messages(with_categories=true) %}-->
+<!--    {% if messages %}-->
+<!--    {% for category, message in messages %}-->
+<!--    <div class="alert alert-{{ category }} element danger">{{ message }}</div>-->
+<!--    {% endfor %}-->
+<!--    {% endif %}-->
+<!--    {% endwith %}-->
 
-    <form action="" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
-    </form>
-    <div class="element">
-        <a href="{{ url_for('signup') }}">Not registered? Sign up</a>
-    </div>
-</div>
-</body>
-</html>
+<!--    <form action="" method="post">-->
+<!--        <label for="username">Username:</label>-->
+<!--        <input type="text" id="username" name="username" required>-->
+<!--        <label for="password">Password:</label>-->
+<!--        <input type="password" id="password" name="password" required>-->
+<!--        <button type="submit">Login</button>-->
+<!--    </form>-->
+<!--    <div class="element">-->
+<!--        <a href="{{ url_for('signup') }}">Not registered? Sign up</a>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

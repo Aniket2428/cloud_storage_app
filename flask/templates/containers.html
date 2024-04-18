@@ -28,20 +28,16 @@
                     <div class="col-7 mt-1">
                         <h4 style="color: #3a4664">user: {{ username }}</h4>
                     </div>
-                    <div class="col-5">
-                        <form action="{{ url_for('logout') }}" method="post">
-                            <button type="submit" class="btn btn-danger">Logout</button>
-                        </form>
-                    </div>
+<!---->
                 </div>
             </div>
         </div>
     </div>
-       {% if username != ''%}
-    <div class="alert alert-success mt-2" id="dismissDiv" style="display: block;">
-        <p>{{username}} login successfully <p>
-    </div>
-    {%endif%}
+<!--       {% if username != ''%}-->
+<!--    <div class="alert alert-success mt-2" id="dismissDiv" style="display: block;">-->
+<!--        <p>{{username}} login successfully <p>-->
+<!--    </div>-->
+<!--    {%endif%}-->
     <!-- Create Container Form -->
     <div class="card mt-4">
         <div class="card-header">Create Container</div>
@@ -89,15 +85,15 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    // Get the reference to the div
-    var dismissDiv = document.getElementById('dismissDiv');
+<!--<script>-->
+<!--    // Get the reference to the div-->
+<!--    var dismissDiv = document.getElementById('dismissDiv');-->
 
-    // Set a timer to dismiss the div after 5 seconds (5000 milliseconds)
-    setTimeout(function() {
-      dismissDiv.style.display = 'none'; // Hide the div after 5 seconds
-    }, 5000); // 5000 milliseconds = 5 seconds
-</script>
+<!--    // Set a timer to dismiss the div after 5 seconds (5000 milliseconds)-->
+<!--    setTimeout(function() {-->
+<!--      dismissDiv.style.display = 'none'; // Hide the div after 5 seconds-->
+<!--    }, 5000); // 5000 milliseconds = 5 seconds-->
+<!--</script>-->
 
 </body>
 </html>

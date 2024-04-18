@@ -1,14 +1,14 @@
 version: '3.7'
 
 services:
-  web:
+  flask:
     build: flask
     ports:
       - "8080:8080"
     depends_on:
       - mongo
     environment:
-      MONGO_URI: "database+srv://storage:Abhey123@cluster0.i4dedvi.database.net/database" # Modify this according to your MongoDB configuration
+      MONGO_URI: "mongodb://storage:Abhey123@cluster0.i4dedvi.database.net/database" # Modify this according to your MongoDB configuration
 
   mongo:
     image: mongo:latest
@@ -17,7 +17,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongo-data:/data/db
+      - ./database/mongo.py:init_mongo
 
 volumes:
   mongo-data:

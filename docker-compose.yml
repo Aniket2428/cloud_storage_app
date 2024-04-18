@@ -1,18 +1,23 @@
-version: '3.8'
+version: '3.7'
 
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: flask
     ports:
       - "8080:8080"
-    restart: always
-    links:
+    depends_on:
       - mongo
+    environment:
+      MONGO_URI: "mongodb+srv://storage:Abhey123@cluster0.i4dedvi.mongodb.net/database" # Modify this according to your MongoDB configuration
 
   mongo:
     image: mongo:latest
-    environment:
-      - MONGO_URI=mongodb+srv://storage:Abhey123@cluster0.i4dedvi.mongodb.net/database
-    restart: always
+#    environment:
+#      MONGO_URI: "mongodb+srv://storage:Abhey123@cluster0.i4dedvi.mongodb.net/database" # Modify this according to your MongoDB configuration
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

@@ -7,16 +7,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from azure.storage.blob import BlobServiceClient
 
-from mongodb.mongo import mongo, init_mongo
+from mongodb.mongo import init_mongo, mongo
 
-load_dotenv()
+
 app = Flask(__name__)
 
 # Replace with your Azure Storage account details
 account_name = os.getenv('ACCOUNT_NAME')
 account_key = os.getenv('ACCOUNT_KEY')
 mongo_uri = os.getenv('MONGO_URI')
-print(mongo_uri)
 
 # Initialize the Azure Blob Storage client
 connection_string = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
@@ -87,7 +86,7 @@ def download_file(container_name, file_name):
         flash('Please log in to access this page.', 'error')
         return redirect(url_for('login'))
 
-    local_file_path = os.path.join('temp', quote(file_name))
+    local_file_path = os.path.join('../temp', quote(file_name))
     download_file_from_azure(file_name, container_name, local_file_path)
     # download_file_from_azure(file_name, container_name, local_file_path)
     upload_message = "Downloaded Successfully."
@@ -280,10 +279,10 @@ def download_file_from_azure(file_name, container_name, local_file_path):
 
     try:
         # Ensure the 'temp' directory exists
-        os.makedirs('temp', exist_ok=True)
+        os.makedirs('../temp', exist_ok=True)
 
         # Use os.path.join for constructing the local file path
-        local_file_path = os.path.join('temp', quote(file_name))
+        local_file_path = os.path.join('../temp', quote(file_name))
 
         with open(local_file_path, 'wb') as file:
             data = blob_client.download_blob()

@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, send_file, jsonify
 from urllib.parse import quote
 import os
@@ -6,13 +7,15 @@ from azure.storage.blob import BlobServiceClient
 
 
 app = Flask(__name__)
-
+load_dotenv()
 # Replace with your Azure Storage account details
 account_name = os.getenv('ACCOUNT_NAME')
 account_key = os.getenv('ACCOUNT_KEY')
 # mongo_uri = os.getenv('MONGO_URI')
+con_string = os.getenv('CONNECTION_STRING')
+
 # Initialize the Azure Blob Storage client
-connection_string = "DefaultEndpointsProtocol=https;AccountName=storageappfinalproject;AccountKey=I4+HHu4LRuGqD4R9dzGmbzBwwG/sa/8oufVsNmkW04hSe4SOJngBFN4xDHZeKPzigGJjJYgVpZ+C+AStxQe2tg==;EndpointSuffix=core.windows.net"
+connection_string = con_string
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
 upload_message = ""

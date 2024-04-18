@@ -11,9 +11,8 @@ app = Flask(__name__)
 account_name = os.getenv('ACCOUNT_NAME')
 account_key = os.getenv('ACCOUNT_KEY')
 # mongo_uri = os.getenv('MONGO_URI')
-
 # Initialize the Azure Blob Storage client
-connection_string = f"DefaultEndpointsProtocol=https;AccountName={account_name};AccountKey={account_key};EndpointSuffix=core.windows.net"
+connection_string = "DefaultEndpointsProtocol=https;AccountName=storageappfinalproject;AccountKey=I4+HHu4LRuGqD4R9dzGmbzBwwG/sa/8oufVsNmkW04hSe4SOJngBFN4xDHZeKPzigGJjJYgVpZ+C+AStxQe2tg==;EndpointSuffix=core.windows.net"
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
 upload_message = ""
@@ -27,7 +26,9 @@ upload_message = ""
 # Define a route for the root URL
 @app.route('/')
 def index():
-    return render_template('containers.html', username="aniket")  # Redirect to signup page when accessing root URL
+    containers = list_containers()
+    print(containers)
+    return render_template('containers.html', username="aniket",containers=containers)  # Redirect to signup page when accessing root URL
 
 
 # @app.route('/homepage')
@@ -47,10 +48,9 @@ def index():
 #     #     flash('Please log in to access this page.', 'error')
 #     #     return redirect(url_for('login'))
 #
-#     # containers = list_containers()
-#     # print(containers)
-#     return render_template('containers.html', username="aniket")
-#
+    #
+    # return render_template('containers.html', username="aniket")
+
 
 @app.route('/<path:container_name>')
 def list_container_files(container_name):

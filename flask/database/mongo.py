@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
 from flask_pymongo import PyMongo
 
-# mongo_uri = "mongodb+srv://storageapp:Abhey123@cluster0.4xp0q36.mongodb.net/database"
-# mongo_uri = "mongodb+srv://storage:Abhey123@cluster0.i4dedvi.mongodb.net/database"
+# mongo_uri = "database+srv://storageapp:Abhey123@cluster0.4xp0q36.database.net/database"
+# mongo_uri = "database+srv://storage:Abhey123@cluster0.i4dedvi.database.net/database"
 load_dotenv()
 mongo = PyMongo()
 

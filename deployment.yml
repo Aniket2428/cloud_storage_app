@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+        - name: flask-app
+          image: aniket28z/myflaskapp
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: flask-app
+  type: LoadBalancer  # Change this to NodePort or ClusterIP based on your requirements
